@@ -19,40 +19,45 @@ All heights grid[i][j] are in the range [0, 100].
 All buildings in grid[i][j] occupy the entire grid cell: that is, they are a 1 x 1 x grid[i][j] rectangular prism.
 """
 
-class Solution(object):
+def main():
+   my_grid = [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]
+   maxIncreaseKeepingSkyline(my_grid)
 
-   def main():
-      my_grid = [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]
-      print(maxIncreaseKeepingSkyline(my_grid))
+def maxIncreaseKeepingSkyline(grid):
+   """
+   :type grid: List[List[int]]
+   :rtype: int
+   """
+   top_bottom_skyline = getTopBottomView(grid)
+   left_right_skyline = getLeftRightView(grid)
 
-   def maxIncreaseKeepingSkyline(self, grid):
-      """
-      :type grid: List[List[int]]
-      :rtype: int
-      """
-      top_bottom_skyline = self.getTopBottomView(grid)
-      left_right_skyline = self.getLeftRightView(grid)
+   print(top_bottom_skyline)
+   print(left_right_skyline)
 
-      print(top_bottom_skyline)
-      print(left_right_skyline)
+   for i in range(len(grid)):
+      for j in range(len(grid[0])):
 
-   def sumOfGrid(self, grid):
-      sum = 0
-      for building_height in grid:
-         sum += building_height
 
-   def getTopBottomView(self, grid):
-      list = []
-      for index in range(len(grid[0])):
-         largest_element = -1
-         for array in grid:
-            if array[index] > largest_element:
-               largest_element = array[index]
-         list.append(largest_element)
-      return list
+def sumOfGrid(grid):
+   sum = 0
+   for building_height in grid:
+      sum += building_height
 
-   def getLeftRightView(self, grid):
-      list = []
+def getTopBottomView(grid):
+   list = []
+   for index in range(len(grid[0])):
+      largest_element = -1
       for array in grid:
-         list.append(max(array))
-      return list
+         if array[index] > largest_element:
+            largest_element = array[index]
+      list.append(largest_element)
+   return list
+
+def getLeftRightView(grid):
+   list = []
+   for array in grid:
+      list.append(max(array))
+   return list
+
+if __name__ == '__main__':
+	main()
