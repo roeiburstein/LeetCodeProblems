@@ -21,27 +21,33 @@ All buildings in grid[i][j] occupy the entire grid cell: that is, they are a 1 x
 
 def main():
    my_grid = [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]
-   maxIncreaseKeepingSkyline(my_grid)
+   print(maxIncreaseKeepingSkyline(my_grid))
+
 
 def maxIncreaseKeepingSkyline(grid):
    """
    :type grid: List[List[int]]
    :rtype: int
    """
+   sum_before = sumOfGrid(grid)
    top_bottom_skyline = getTopBottomView(grid)
    left_right_skyline = getLeftRightView(grid)
 
    print(top_bottom_skyline)
    print(left_right_skyline)
 
-   for i in range(len(grid)):
-      for j in range(len(grid[0])):
+   for row in range(len(grid)):
+      for col in range(len(grid[0])):
+         grid[row][col] = min(left_right_skyline[row], top_bottom_skyline[col])
 
+   return sumOfGrid(grid) - sum_before
 
 def sumOfGrid(grid):
    sum = 0
-   for building_height in grid:
-      sum += building_height
+   for row in range(len(grid)):
+      for col in range(len(grid[0])):
+         sum += grid[row][col]
+   return sum
 
 def getTopBottomView(grid):
    list = []
