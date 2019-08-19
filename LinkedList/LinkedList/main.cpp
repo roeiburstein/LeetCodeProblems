@@ -12,14 +12,14 @@
 
 #include <iostream>
 
-struct ListNode{
-    int val;
-    ListNode* next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
-
 class Solution {
 public:
+    struct ListNode{
+        int val;
+        ListNode* next;
+        ListNode(int x) : val(x), next(NULL) {}
+    };
+
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         int remainder = 0;
         int curr_sum = l1->val + l2->val;
@@ -33,36 +33,52 @@ public:
         ListNode* l3_temp = l3;
         ListNode* l3_temp2 = l3_temp;
         
-        do {
-            curr_sum = l1->val + l2->val + remainder;
+        l1 = l1->next;
+        l2 = l2->next;
+        
+        
+        while(l1 != NULL || l2 != NULL) {
+            if (l1 != NULL && l2 != NULL) {
+                curr_sum = l1->val + l2->val + remainder;
+            }
+            
+            else if (l1 == NULL) {
+                curr_sum = l2->val + remainder;
+            }
+            
+            else {
+                curr_sum = l1->val + remainder;
+            }
             
             if (curr_sum >= 10){
                 curr_sum -= 10;
                 remainder = 1;
             }
             
+            else {
+                remainder = 0;
+            }
+            
             l3_temp = new ListNode(curr_sum);
             l3_temp2->next = l3_temp;
-            l1 = l1->next;
-            l2 = l2->next;
+            if (l1 != NULL) {
+                l1 = l1->next;
+            }
+            
+            if (l2 != NULL) {
+                l2 = l2->next;
+            }
+            
             l3_temp2 = l3_temp2->next;
-            
-            remainder = 0;
             curr_sum = 0;
-            
-        } while(l1 != NULL && l2 != NULL);
+        }
         
-        if (remainder == 1){
+        if (remainder == 1) {
             l3_temp = new ListNode(remainder);
             l3_temp2->next = l3_temp;
         }
+        
         return l3;
     }
-    
-int main(int argc, const char * argv[]) {
-    return 0;
-}
-
 };
-#include <iostream>
 
