@@ -50,7 +50,7 @@ Output: "MCMXCIV"
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 """
 def main():
-   print(intToRoman(496))
+   print(intToRoman(150))
 
 def intToRoman(num: int) -> str:
    result = ""

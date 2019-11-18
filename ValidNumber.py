@@ -1,3 +1,7 @@
+"""
+This answer is a joke, but it technically works :)
+"""
+
 def main():
    print(isNumber("0.0.1"))
 
