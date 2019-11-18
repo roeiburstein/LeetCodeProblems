@@ -55,7 +55,7 @@ Output: false
 """
 
 def main():
-   print(isMatch("aab", "a*b"))
+   print(isMatch("aab", "a*b*c*a")) # "a*bc*a"
 
 def isMatch(s: str, p: str) -> bool:
    str1_index = 0 # Counter for index of s
@@ -82,6 +82,8 @@ def isMatch(s: str, p: str) -> bool:
                continue
             else: # If character before * in string2 is NOT the same as current character in string1
                return False
+         else: # Characters are not the same and current character in string2 is NOT '*'
+            return False
 
 """
 Compares two characters with '.' character allowed to equal anything. Returns
@@ -101,10 +103,17 @@ are valid for matching string1. This is only true if we've reached the end of
 string2 or if string2 alternates in '*' characters (allowing zero of the
 preceding character when matching).
 """
-def checkForEndOfWord(string1: str, curr_ind: int) -> bool:
-   if curr_ind is len(string1):
+def checkForEndOfWord(string: str, curr_ind: int) -> bool:
+   if curr_ind == len(string): # If we've reached end of string1 at the same index as string2
       return True
-   if curr_ind is len(string1) - 1 and string1[curr_ind] is:
+   if string[curr_ind] is not '*': # If we've ended on a '*'
+      curr_ind -= 1
+   iter = 2 + curr_ind
+   while iter < len(string):
+      if string[iter] is not '*':
+         return False
+      iter += 2
+   return string[-1] is '*'
 
 if __name__ == '__main__':
 	main()
