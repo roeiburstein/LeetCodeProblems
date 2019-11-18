@@ -55,7 +55,7 @@ Output: false
 """
 
 def main():
-   print(isMatch("aab", "a*b*c*a")) # "a*bc*a"
+   print(isMatch("aab", ".*b*c*d"))
 
 def isMatch(s: str, p: str) -> bool:
    str1_index = 0 # Counter for index of s
