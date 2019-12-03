@@ -55,17 +55,17 @@ Output: false
 """
 
 def main():
-   print(isMatch("hellofriends", "hef*.*oa*fr*iena*ds*"))
+   print(isMatch("hellofriends", "h.f*.*oa*fr*iena*ds*a*b*c*d*e*"))
 
 def isMatch(s: str, p: str) -> bool:
    str1_index = 0 # Counter for index of s
    str2_index = 0 # Counter for index of p
-   if p is "" and s is not "":
+   if p is "" and s is not "": # Edge case checking
       return False
    while True:
       if str1_index == len(s): # If we've reached end of the first string
          return checkForEndOfWord(p, str2_index)
-      if str2_index == len(p) and p[str2_index - 1] is not '*':
+      if str2_index == len(p) and p[str2_index - 1] is not '*': # If we've reached the end of str2 and the last character is not '*'
          return False
       if str2_index > 0: # Checks for out of bounds for next if statement
          if p[str2_index] is '*' and not compareChars(s[str1_index], p[str2_index - 1]): # Check if str1 is a new character that '*' doesn't represent
@@ -81,8 +81,8 @@ def isMatch(s: str, p: str) -> bool:
          if p[str2_index] is '*': # If characters are not the same, but current character in string2 is '*'
             if compareChars(s[str1_index], p[str2_index - 1]): # If character before '*' in string 2 is the same as current character in string1
                str1_index += 1 # Increment string1 index
-               if str2_index > 0 and str1_index < len(p):
-                  if p[str2_index - 1] is '.' and not compareChars(s[str1_index - 1], s[str1_index]):
+               if str2_index > 0 and str1_index < len(p): # Makes sure we don't go out of bounds
+                  if p[str2_index - 1] is '.' and not compareChars(s[str1_index - 1], s[str1_index]): # Checks if character in str1 changed so that we increment ".*"
                      str2_index += 1
                continue
             else: # If character before * in string2 is NOT the same as current character in string1
