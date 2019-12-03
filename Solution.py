@@ -3,7 +3,8 @@ class Solution:
       sol = Solution()
       str1_index = 0  # Counter for index of s
       str2_index = 0  # Counter for index of p
-
+      if p is "" and s is not "":
+         return False
       while True:
          if str1_index == len(s):  # If we've reached end of the first string
             return sol.checkForEndOfWord(p, str2_index)
@@ -27,6 +28,14 @@ class Solution:
                if sol.compareChars(p[str2_index - 1], s[
                   str1_index]):  # If character before '*' in string 2 is the same as current character in string1
                   str1_index += 1  # Increment string1 index
+                  if str2_index > 0 and str1_index < len(p):
+                     if p[str2_index - 1] is '.' and not sol.compareChars(
+                        s[str1_index - 1], s[str1_index]):
+                        str2_index += 1
+                  continue
+               elif not sol.compareChars(s[str1_index], p[str2_index]) and p[
+                  str2_index + 1] is '*':
+                  str2_index += 2
                   continue
                else:  # If character before * in string2 is NOT the same as current character in string1
                   return False
